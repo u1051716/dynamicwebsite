@@ -1,0 +1,343 @@
+<?php
+include('config.php');
+session_start();
+if(isset($_POST['login'])){
+
+$user=$_POST["username"];
+$pass=$_POST["password"];
+$sql="SELECT * from registration WHERE username='$user' AND password='$pass'";
+$res=mysqli_query($conn,$sql);
+$num=mysqli_num_rows($res);
+
+if($num==1)
+{
+header('location:adminpage.php');
+}
+else
+{
+header('location:login.php');
+}
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Home</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+    .container1 {
+  margin: 53px auto;
+  width: 100%;
+  color: #404040;
+  background: #0ca3d2;
+  min-height: 1200px;
+
+}
+ .container2 {
+  /*margin: 53px auto;*/
+  /*margin-top: -50px;*/
+  width: 100%;
+  color: #404040;
+  background: #0ca3d2;
+  /*padding: 20px;*/
+  /*max-height: 200px;*/
+}
+    .login {
+  position: relative;
+  margin: 0 auto;
+  padding: 20px 20px 20px;
+  width: 310px;
+  background: white;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.login:before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -8px;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+}
+.login h1 {
+  margin: -20px -20px 21px;
+  line-height: 40px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
+  text-shadow: 0 1px white;
+  background: #f3f3f3;
+  border-bottom: 1px solid #cfcfcf;
+  border-radius: 3px 3px 0 0;
+  background-image: -webkit-linear-gradient(top, whiteffd, #eef2f5);
+  background-image: -moz-linear-gradient(top, whiteffd, #eef2f5);
+  background-image: -o-linear-gradient(top, whiteffd, #eef2f5);
+  background-image: linear-gradient(to bottom, whiteffd, #eef2f5);
+  -webkit-box-shadow: 0 1px whitesmoke;
+  box-shadow: 0 1px whitesmoke;
+}
+.login p {
+  margin: 20px 0 0;
+}
+.login p:first-child {
+  margin-top: 0;
+}
+.login input[type=text], .login input[type=password] {
+  width: 278px;
+}
+.login p.remember_me {
+  float: left;
+  line-height: 31px;
+}
+.login p.remember_me label {
+  font-size: 12px;
+  color: #777;
+  cursor: pointer;
+}
+.login p.remember_me input {
+  position: relative;
+  bottom: 1px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.login p.submit {
+  text-align: right;
+}
+
+.login-help {
+  margin: 20px 0;
+  font-size: 11px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px #2a85a1;
+}
+.login-help a {
+  color: #cce7fa;
+  text-decoration: none;
+}
+.login-help a:hover {
+  text-decoration: underline;
+}
+
+:-moz-placeholder {
+  color: #c9c9c9 !important;
+  font-size: 13px;
+}
+
+::-webkit-input-placeholder {
+  color: #ccc;
+  font-size: 13px;
+}
+
+input {
+  font-family: 'Lucida Grande', Tahoma, Verdana, sans-serif;
+  font-size: 14px;
+}
+
+input[type=text], input[type=password] {
+  margin: 5px;
+  padding: 0 10px;
+  width: 200px;
+  height: 34px;
+  color: #404040;
+  background: white;
+  border: 1px solid;
+  border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+  border-radius: 2px;
+  outline: 5px solid #eff4f7;
+  -moz-outline-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+input[type=text]:focus, input[type=password]:focus {
+  border-color: #7dc9e2;
+  outline-color: #dceefc;
+  outline-offset: 0;
+}
+
+input[type=submit] {
+  padding: 0 18px;
+  height: 29px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #527881;
+  text-shadow: 0 1px #e3f1f1;
+  background: #cde5ef;
+  border: 1px solid;
+  border-color: #b4ccce #b3c0c8 #9eb9c2;
+  border-radius: 16px;
+  outline: 0;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  background-image: -webkit-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: -moz-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: -o-linear-gradient(top, #edf5f8, #cde5ef);
+  background-image: linear-gradient(to bottom, #edf5f8, #cde5ef);
+  -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+input[type=submit]:active {
+  background: #cde5ef;
+  border-color: #9eb9c2 #b3c0c8 #b4ccce;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.lt-ie9 input[type=text], .lt-ie9 input[type=password] {
+  line-height: 34px;
+}
+
+.box{/*
+      height: 50px;
+           float: left;
+           margin-left: 10px;
+           color: white;
+           background: #0ca3d2;
+*/    
+float: left;
+;padding:20px;}
+
+.box1{height:215px;
+      width: 20%;
+      border: 2px solid skyblue;
+      float: left;
+      margin-left: 45px;
+      margin-top: 20px;}
+.align{align-self: center;
+      text-align: center;
+      margin: 10px;
+      padding: 5px;
+      padding-left: 55px;
+      padding-top: 10px;
+      font-family:serif;
+      font-size: 16px
+      }
+
+    .container3 {
+  margin: 53px auto;
+  width: 100%;
+  color: #404040;
+  background: #0ca3d2;
+ //background: #fff;
+}
+
+    </style>
+  </head>
+  <body>
+<?php include('header.php'); 
+
+$sqp1="SELECT * from category";
+$rep1=mysqli_query($conn,$sqp1);
+
+$sqp2="SELECT * from category";
+$rep2=mysqli_query($conn,$sqp2);
+
+$sqp="SELECT * from subcategory";
+$rep=mysqli_query($conn,$sqp);
+?>
+
+
+
+
+<div class="container2">
+
+<span><i style="float:left;padding:20px;">Search By:</i> <?php 
+     while($rop2=mysqli_fetch_array($rep2))
+    { 
+     
+      ?>
+    <div class="box">  <a style="color:black;" href="product.php?id=<?php echo $rop2['catid']?>"><?php echo $rop2['categoryname']?>  </a></div>
+  
+    <?php }
+    ?>
+</span>
+ 
+
+  </div>
+
+
+<section class="container1">
+    <div class="container3">
+
+<form method="post" action="" style="margin-left:5px;margin-top:0px;">
+ <!-- <input type="text" name="search" value="" placeholder="Search">-->
+<select name="category" style="width:145px;height:42px;position:relative;top:-100px; left:60%;">
+  <option value="">Select Category</option>
+  <?php while($rop1=mysqli_fetch_array($rep1)){ ?>
+          <option value="<?php echo $rop1['catid']?>"><?php echo $rop1['categoryname']?></option>
+
+
+          <?php } ?>
+</select>
+<select name="subcategory" style="width:155px;height:42px;position:relative;top:-100px; left:60%;">
+  <option value="">Select SubCategory</option>
+  <?php while($rop=mysqli_fetch_array($rep)){ ?>
+          <option value="<?php echo $rop['subcatid']?>"><?php echo $rop['subcatname']?></option>
+          <?php } ?>
+  
+</select>
+<input type="submit" value="Search" name="submit_search" style="position:relative;top:-100px; left:60%;">
+</form>
+    
+    <?php
+    if(isset($_POST['submit_search']))
+    {
+      $category=$_POST['category'];
+      $subcategory=$_POST['subcategory'];
+      $demo="SELECT * from post WHERE catid='$category' AND subcatid='$subcategory' ORDER BY postid DESC";
+ 
+      $sql1=mysqli_query($conn,"SELECT * from post WHERE catid='$category' AND subcatid='$subcategory' ORDER BY postid DESC");
+
+          
+    while(@$roo=mysqli_fetch_array($sql1))
+    { ?>
+
+<div class="box1">
+    <table>
+    <tr>
+    <td class="align"><a href="upload/<?php echo $roo['imagename'];?>"><img src="upload/<?php echo $roo['imagename'];?>" width="60" height="60"></a></td></tr>
+   
+
+   
+<tr><td  class="align">
+      Post: <?php echo $roo['postname'];?></td></tr>
+    
+   
+    <tr><td  class="align">
+      Description: <?php echo $roo['description'];?>
+      </td>
+    </tr> 
+    </table></div>
+    
+    <?php }}
+    ?>
+
+  </div>
+
+
+  </section>
+
+<?php include('footer.php'); ?>
+
+  <!-- script references -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
